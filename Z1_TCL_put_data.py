@@ -66,7 +66,7 @@ def put_data(src_file, src_format, upload_file, start_addr, bank_width = 3, row_
             if line_list[0].find("//") >= 0:
                 # this is a comment line
                 continue
-            # get the original address string anf data string
+            # get the original address string and data string
             if line_list[0].find("@") >= 0:
                 addr_orig = line_list[0]
                 addr_orig = addr_orig[1:]
@@ -80,7 +80,7 @@ def put_data(src_file, src_format, upload_file, start_addr, bank_width = 3, row_
                 list_data.append(data2)
                 list_data.append(data3)
                 list_data.append(data4)
-                # get the corrsponding address of the data on decimal
+                # get the corrsponding address of the data in decimal
                 data1_addr = getbin(addr_orig, 0)
                 data2_addr = getbin(addr_orig, 1)
                 data3_addr = getbin(addr_orig, 2)
@@ -93,7 +93,7 @@ def put_data(src_file, src_format, upload_file, start_addr, bank_width = 3, row_
     # if it is in the format 1 format
     elif src_format == 1:
         # to keep track of the updating address
-        addr_count =0
+        addr_count = 0
         for line in open(src_file, "r"):
             # get the data string
             line = line[0:2]
@@ -134,7 +134,7 @@ def put_data(src_file, src_format, upload_file, start_addr, bank_width = 3, row_
         file = open(upload_file, "w+")
         # create a file with unit_nm_mem number of lines that are filled with 0000
         # unit number of the memory
-        unit_num_mem = pow(a, (bank_width + row_width + col_width - 1))
+        unit_num_mem = pow(2, (bank_width + row_width + col_width - 1))
 
         for i in range(unit_num_mem):
             file.write("0000\n")
@@ -172,7 +172,7 @@ def put_data(src_file, src_format, upload_file, start_addr, bank_width = 3, row_
 # put_data(src_file, src_format, upload_file, start_addr, bank_width, row_width, col_width)
 
 # if the bank width, row width, and col width is defined, use the defined numbers
-if len(sys.argv) == 9:
+if len(sys.argv) == 8:
     put_data(sys.argv[1], int(sys.argv[2]), sys.argv[3], sys.argv[4], int(sys.argv[5]), int(sys.argv[6]), int(sys.argv[7]))
 # else if the bank width, row width, and col width is not defined, use the default numbers
 else:

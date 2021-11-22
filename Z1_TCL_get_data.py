@@ -10,7 +10,7 @@ import linecache
 
 
 # --------------------------------------------------Part 1. Functions---------------------------------------------------
-# Function 1. teurn hex number into 32 bit binary string
+# Function 1. turn hex number into 32 bit binary string
 def getbin(string, num):
     string_bin = str(bin(int(string, 16) + num))[2:]
     if len(string_bin) < 32:
@@ -67,7 +67,7 @@ def get_data(download_file, start_addr, data_byte_len, result_file, data_format,
         list_data.append(line)
 
     # 5. write the data info file
-    file = open(result_file)
+    file = open(result_file, "w+")
     # write in format 1 with 1 byte per row
     if data_format == 0:
         for byte in list_data:
@@ -83,8 +83,8 @@ def get_data(download_file, start_addr, data_byte_len, result_file, data_format,
                 file.write(byte_string + "\n")
                 count = 0
                 byte_string = ""
-            if len(byte_string) != 0:
-                file.write(byte_string)
+        if len(byte_string) != 0:
+            file.write(byte_string)
 
     print("result_file: " + result_file + "updated.")
 

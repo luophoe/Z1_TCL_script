@@ -13,12 +13,28 @@ from os import path
 
 # --------------------------------------------------Part 1. Functions---------------------------------------------------
 # Function 1. turn hex number into 32 bit binary string
-def getbin(string, num):
+def getbin(string, num, bank_width, row_width, col_width):
     string_bin = str(bin(int(string, 16) + num))[2:]
+    # 1. if the transformed binary number has missing 0's
     if len(string_bin) < 32:
         num = 32 - len(string_bin)
         for i in range(num):
             string_bin = "0" + string_bin
+            
+    # 2. if the transformed binary number has unnecessary 1 on bit 31, change the bit to 0
+    if string_bin[0] == "1":
+        string_bin = "0" + string_bin[1:]
+    
+    # 3. if the address has illegal bits, output a warning
+    # calculate the appropreate length of the address
+    addr_length = bank_width + row_widh + col_width
+    # check if there is illegal number
+    illegal_check = 0
+    for num in string_bin[:32-addr_length]:
+        if num != "0":
+            illegal_check == 1
+    if illegal_check == 1:
+        print("Warning: illegal system address, access out of bound!")
     return string_bin
 
 
@@ -81,10 +97,10 @@ def put_data(src_file, src_format, upload_file, start_addr, bank_width = 3, row_
                 list_data.append(data3)
                 list_data.append(data4)
                 # get the corrsponding address of the data in decimal
-                data1_addr = getbin(addr_orig, 0)
-                data2_addr = getbin(addr_orig, 1)
-                data3_addr = getbin(addr_orig, 2)
-                data4_addr = getbin(addr_orig, 3)
+                data1_addr = getbin(addr_orig, 0, bank_width, row_width, col_width)
+                data2_addr = getbin(addr_orig, 1, bank_width, row_width, col_width)
+                data3_addr = getbin(addr_orig, 2, bank_width, row_width, col_width)
+                data4_addr = getbin(addr_orig, 3, bank_width, row_width, col_width)
                 list_addr.append(data1_addr)
                 list_addr.append(data2_addr)
                 list_addr.append(data3_addr)
@@ -100,7 +116,7 @@ def put_data(src_file, src_format, upload_file, start_addr, bank_width = 3, row_
             line = stripextra(line)
             list_data.append(line)
             # get the corresponding address of the data in decimal
-            line_addr = getbin(start_addr, addr_count)
+            line_addr = getbin(start_addr, addr_count, bank_width, row_width, col_width)
             addr_count = addr_count + 1
             list_addr.append(line_addr)
 
@@ -119,10 +135,10 @@ def put_data(src_file, src_format, upload_file, start_addr, bank_width = 3, row_
             list_data.append(data3)
             list_data.append(data4)
             # get the corrsponding address of the data on decimal
-            data1_addr = getbin(start_addr, 0 + addr_count)
-            data2_addr = getbin(start_addr, 1 + addr_count)
-            data3_addr = getbin(start_addr, 2 + addr_count)
-            data4_addr = getbin(start_addr, 3 + addr_count)
+            data1_addr = getbin(start_addr, 0 + addr_count, bank_width, row_width, col_width)
+            data2_addr = getbin(start_addr, 1 + addr_count, bank_width, row_width, col_width)
+            data3_addr = getbin(start_addr, 2 + addr_count, bank_width, row_width, col_width)
+            data4_addr = getbin(start_addr, 3 + addr_count, bank_width, row_width, col_width)
             addr_count = addr_count + 4
             list_addr.append(data1_addr)
             list_addr.append(data2_addr)

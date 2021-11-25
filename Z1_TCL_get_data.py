@@ -11,12 +11,28 @@ import linecache
 
 # --------------------------------------------------Part 1. Functions---------------------------------------------------
 # Function 1. turn hex number into 32 bit binary string
-def getbin(string, num):
+def getbin(string, num, bank_width, row_width, col_width):
     string_bin = str(bin(int(string, 16) + num))[2:]
+    # 1. if the transformed binary number has missing 0's
     if len(string_bin) < 32:
         num = 32 - len(string_bin)
         for i in range(num):
             string_bin = "0" + string_bin
+            
+    # 2. if the transformed binary number has unnecessary 1 on bit 31, change the bit to 0
+    if string_bin[0] == "1":
+        string_bin = "0" + string_bin[1:]
+    
+    # 3. if the address has illegal bits, output a warning
+    # calculate the appropreate length of the address
+    addr_length = bank_width + row_widh + col_width
+    # check if there is illegal number
+    illegal_check = 0
+    for num in string_bin[:32-addr_length]:
+        if num != "0":
+            illegal_check == 1
+    if illegal_check == 1:
+        print("Warning: illegal system address, access out of bound!")
     return string_bin
 
 
@@ -43,7 +59,7 @@ def get_data(download_file, start_addr, data_byte_len, result_file, data_format,
 
     for i in range(0, data_byte_len):
         # 1. turn the hex address into binary
-        start_addr_bin = getbin(start_addr, i)
+        start_addr_bin = getbin(start_addr, i, bank_width, row_width, col_width)
 
         # 2. turn system address into memory address format
         mem_addr_bin = changeaddr(start_addr_bin, bank_width, row_width, col_width)

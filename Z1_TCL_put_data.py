@@ -68,6 +68,15 @@ def stripextra(line):
     else:
         return line
 
+    
+# Function 4. check if the length of the line is less than the required length
+def checklen(line, num):
+    line = line.replace("\n", "")
+    if len(line) < num:
+        for i in range(num - len(line)):
+            line = line + "0"
+    return line
+    
 
 # Main Function. put data to the memory file in the correct address line
 def put_data(src_file, src_format, upload_file, start_addr, bank_width = 3, row_width = 13, col_width = 11):
@@ -87,6 +96,8 @@ def put_data(src_file, src_format, upload_file, start_addr, bank_width = 3, row_
                 addr_orig = line_list[0]
                 addr_orig = addr_orig[1:]
                 data_orig = line_list[1]
+                # check if the data_orig has the correct length
+                data_orig = checklen(data_orig, 8)
                 # split the string into data1, data2, data3, data4 from low address to high address
                 data1 = data_orig[6:8]
                 data2 = data_orig[4:6]
@@ -125,6 +136,8 @@ def put_data(src_file, src_format, upload_file, start_addr, bank_width = 3, row_
         # to keep track of the updating address
         addr_count = 0
         for line in open(src_file, "r"):
+            # check if the line has the correct length
+            line = checklen(line, 8)
             # split the string into data1, data2, data3, data4 from low address to high address
             data1 = line[6:8]
             data2 = line[4:6]

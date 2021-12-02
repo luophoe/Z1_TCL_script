@@ -2,7 +2,7 @@
 #
 # Created on: 11/11/2021
 #     Author: Anyka
-#             Phoebe Luo
+#      		  Phoebe Luo
 import re
 import os
 import sys
@@ -104,4 +104,32 @@ def data_format_trans(src_file, result_file, trans_type):
                 count += 1
 
         elif trans_type == "4t1":
-            
+            # 5. turn file from 4 byte per row to 1 byte per row
+            line = line[0:9]
+            line = stripextra(line)
+            file.write(line[6:8])
+            file.write("\n")
+            file.write(line[4:6])
+            file.write("\n")
+            file.write(line[2:4])
+            file.write("\n")
+            file.write(line[0:2])
+            file.write("\n")
+
+        elif trans_type == "4t2":
+            # 6. turn file from 4 byte per row to 2 byte per row
+            line = line[0:9]
+            line = stripextra(line)
+            file.write(line[4:8])
+            file.write("\n")
+            file.write(line[0:4])
+            file.write("\n")
+
+    if len(string_line) != 0:
+        file.write(string_line)
+
+
+# ----------------------------------------------------Part 2. Main------------------------------------------------------
+# call data_format_trans
+# data_format_trans(src_file, result_file, trans_type)
+data_format_trans(sys.argv[1], sys.argv[2], sys.argv[3])

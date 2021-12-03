@@ -87,7 +87,11 @@ def put_data(src_file, src_format, upload_file, start_addr, bank_width = 3, row_
     # if it is in the test_case format
     if src_format == 0:
         for line in open(src_file, "r"):
-            line_list = line.split("\t")
+            # split when a null character appears
+            line_list = line.split()
+            if len(line_list) == 0:
+                # this is an empty line
+                continue
             if line_list[0].find("//") >= 0:
                 # this is a comment line
                 continue

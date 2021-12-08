@@ -21,9 +21,13 @@ def getbin(string, num, bank_width, row_width, col_width):
         for i in range(num):
             string_bin = "0" + string_bin
             
-    # 2. if the transformed binary number has unnecessary 1 on bit 31, change the bit to 0
+    # 2. if the transformed binary number has unnecessary 1's, change the bit to 0
+    # unnecessary 1 on bit 31
     if string_bin[0] == "1":
         string_bin = "0" + string_bin[1:]
+    # unnecessary 1 on bit 30
+    if string_bin[1] == "1":
+        string_bin = string_bin[0] + "0" + string_bin[2:]
     
     # 3. if the address has illegal bits, output a warning
     # calculate the appropreate length of the address

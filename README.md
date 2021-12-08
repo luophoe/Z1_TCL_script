@@ -13,10 +13,11 @@ i.e. 31 30 29 28 27 13 12 11 26 25 24 23 22 21 20 19 18 17 16 15 14 10 9 8 7 6 5
 Z1_TCL_get_data.py "download_file" "start_addr" data_byte_length "result_file" data_format bank_width row_width col_width
 Z1_TCL_put_data.py "src_file" src_format "upload_file" "start_addr" bank_width row_width col_width
   
-- two side scripts are required:
+- three side scripts are required:
   
 Z1_TCL_file_compare.py "ref_file" "result_file" "comp_result_file"  
-Z1_TCL_data_format_trans.py "src_file" "result_file" "trans_type"  
+Z1_TCL_data_format_trans.py "src_file" "result_file" "trans_type" 
+Z1_TCL_bin2hex.py "bin_file" "hex_file"  
   
 - NOTES:   
   

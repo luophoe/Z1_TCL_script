@@ -16,7 +16,7 @@ Z1_TCL_put_data.py "src_file" src_format "upload_file" "start_addr" bank_width r
 - three side scripts are required:
   
 Z1_TCL_file_compare.py "ref_file" "result_file" "comp_result_file"  
-Z1_TCL_data_format_trans.py "src_file" "result_file" "trans_type" 
+Z1_TCL_data_format_trans.py "src_file" "result_file" "trans_type"  
 Z1_TCL_bin2hex.py "bin_file" "hex_file"  
   
 - NOTES:   
